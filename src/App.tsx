@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ConsultantBox } from "./components/ConsultantBox";
 import { businessMockData } from "./mockData/business";
 
 import "./App.css";
 
 function App() {
-  const [customersIsLoading, setCustomersIsLoading] = useState(true);
+  const [customersIsLoading, setCustomersIsLoading] = useState(false);
   const customersKeyword = "customers";
+
+  useEffect(() => {
+    const delayTimer = setTimeout(() => {
+      setCustomersIsLoading(true);
+    }, 2000);
+
+    return () => clearTimeout(delayTimer);
+  }, []);
 
   return (
     <>
