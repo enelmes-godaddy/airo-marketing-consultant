@@ -30,12 +30,6 @@
       position: absolute;
       width: 0%;
     }
-    
-    &:dir(rtl)::after {
-      animation-name: loadingRTL;
-      left: auto;
-      right: 0;
-    }
   }
 
   &.consultant-box--loaded {
@@ -74,15 +68,6 @@
 
 /* Loading bar animation */
 @keyframes loading {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
-}
-
-@keyframes loadingRTL {
   0% {
     width: 0%;
   }
