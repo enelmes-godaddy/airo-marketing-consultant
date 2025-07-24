@@ -9,8 +9,8 @@ function App() {
   const [boxStates, setBoxStates] = useState(
     fourCMockData.map(() => ({
       isLoading: false,
+      isLoaded: false,
       isCompleted: false,
-      isHidden: false,
       showDescription: false,
       startLoadingBar: false,
     }))
@@ -32,12 +32,12 @@ function App() {
   // Handle sequential loading of boxes
   useEffect(() => {
     boxStates.forEach((boxState, index) => {
-      if (boxState.startLoadingBar && !boxState.isCompleted) {
+      if (boxState.startLoadingBar && !boxState.isLoaded) {
         const loadingTime = fourCMockData[index].loadingTime;
         const completionTimer = setTimeout(() => {
           setBoxStates(prev => {
             const newStates = [...prev];
-            newStates[index].isCompleted = true;
+            newStates[index].isLoaded = true;
             
             // Start the next box if it exists
             if (index + 1 < fourCMockData.length) {
@@ -94,7 +94,7 @@ function App() {
         
         // Only render the box if it's loading or has been loaded
         // This ensures boxes only appear when it's their turn
-        if (!boxState.isLoading && !boxState.isCompleted) {
+        if (!boxState.isLoading && !boxState.isLoaded) {
           return null;
         }
         
@@ -103,8 +103,8 @@ function App() {
             key={item.id}
             className={`box-${item.keyword}`}
             isLoading={boxState.startLoadingBar}
-            isLoaded={boxState.isCompleted}
-            isCompleted={boxState.isHidden}
+            isLoaded={boxState.isLoaded}
+            isCompleted={boxState.isCompleted}
             loadingDuration={item.loadingTime}
           >
             <ConsultantBox.Title>
