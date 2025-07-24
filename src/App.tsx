@@ -1,70 +1,126 @@
 import { useState, useEffect } from "react";
 import { ConsultantBox } from "./components/ConsultantBox";
-import { businessMockData } from "./mockData/business";
+import { fourCMockData } from "./mockData/fourC";
 
 import "./App.css";
 
 function App() {
-  const [customersIsLoading, setCustomersIsLoading] = useState(false);
-  const [customersCompleted, setCustomersCompleted] = useState(false);
-  const [hideCustomersText, setHideCustomersText] = useState(false);
-  const customersKeyword = "customers";
+  // State for each box
+  const [boxStates, setBoxStates] = useState(
+    fourCMockData.map(() => ({
+      isLoading: false,
+      isCompleted: false,
+      isHidden: false,
+      showDescription: false,
+      startLoadingBar: false,
+    }))
+  );
 
-  const loadingTime = businessMockData.find((item) => item.keyword === customersKeyword)?.loadingTime || 6000;
-
+  // Start the first box after 2 seconds
   useEffect(() => {
     const delayTimer = setTimeout(() => {
-      setCustomersIsLoading(true);
+      setBoxStates(prev => {
+        const newStates = [...prev];
+        newStates[0].isLoading = true;
+        return newStates;
+      });
     }, 2000);
 
     return () => clearTimeout(delayTimer);
   }, []);
 
+  // Handle sequential loading of boxes
   useEffect(() => {
-    if (customersIsLoading) {
-      const completionTimer = setTimeout(() => {
-        setCustomersCompleted(true);
-      }, loadingTime);
+    boxStates.forEach((boxState, index) => {
+      if (boxState.startLoadingBar && !boxState.isCompleted) {
+        const loadingTime = fourCMockData[index].loadingTime;
+        const completionTimer = setTimeout(() => {
+          setBoxStates(prev => {
+            const newStates = [...prev];
+            newStates[index].isCompleted = true;
+            
+            // Start the next box if it exists
+            if (index + 1 < fourCMockData.length) {
+              newStates[index + 1].isLoading = true;
+            }
+            
+            return newStates;
+          });
+        }, loadingTime);
 
-      return () => clearTimeout(completionTimer);
-    }
-  }, [customersIsLoading, loadingTime]);
+        return () => clearTimeout(completionTimer);
+      }
+    });
+  }, [boxStates]);
 
-  // useEffect(() => {
-  //   if (customersCompleted) {
-  //     const hideTimer = setTimeout(() => {
-  //       setHideCustomersText(true);
-  //     }, 800);
+  // Handle description fade-in with delay
+  useEffect(() => {
+    boxStates.forEach((boxState, index) => {
+      if (boxState.isLoading && !boxState.showDescription) {
+        const descriptionTimer = setTimeout(() => {
+          setBoxStates(prev => {
+            const newStates = [...prev];
+            newStates[index].showDescription = true;
+            return newStates;
+          });
+        }, 800); // Short delay for description to fade in
 
-  //     return () => clearTimeout(hideTimer);
-  //   }
-  // }, [customersCompleted]);
+        return () => clearTimeout(descriptionTimer);
+      }
+    });
+  }, [boxStates]);
+
+  // Start loading bar animation after description is fully revealed
+  useEffect(() => {
+    boxStates.forEach((boxState, index) => {
+      if (boxState.showDescription && !boxState.startLoadingBar) {
+        const loadingBarTimer = setTimeout(() => {
+          setBoxStates(prev => {
+            const newStates = [...prev];
+            newStates[index].startLoadingBar = true;
+            return newStates;
+          });
+        }, 1000); // Wait for description reveal animation to complete (1s)
+
+        return () => clearTimeout(loadingBarTimer);
+      }
+    });
+  }, [boxStates]);
 
   return (
-    <>
-      <ConsultantBox
-        className="box-customers"
-        isLoading={customersIsLoading}
-        isLoaded={customersCompleted}
-        isCompleted={hideCustomersText}
-        loadingDuration={
-          businessMockData.find((item) => item.keyword === customersKeyword)
-            ?.loadingTime
+    <div className='four-c-boxes'>
+      {fourCMockData.map((item, index) => {
+        const boxState = boxStates[index];
+        
+        // Only render the box if it's loading or has been loaded
+        // This ensures boxes only appear when it's their turn
+        if (!boxState.isLoading && !boxState.isCompleted) {
+          return null;
         }
-      >
-        <ConsultantBox.Title>
-          <>
-            <span className="title-text">Learning about your</span> <b>{customersKeyword}</b><span className="title-text">...</span>
-          </>
-        </ConsultantBox.Title>
-        {customersIsLoading && (
-          <ConsultantBox.Description className="reveal-text">
-            I'm digging into who your customers really are, so you can be the
-            most competitive in the market.
-          </ConsultantBox.Description>
-        )}
-      </ConsultantBox>
-    </>
+        
+        return (
+          <ConsultantBox
+            key={item.id}
+            className={`box-${item.keyword}`}
+            isLoading={boxState.startLoadingBar}
+            isLoaded={boxState.isCompleted}
+            isCompleted={boxState.isHidden}
+            loadingDuration={item.loadingTime}
+          >
+            <ConsultantBox.Title>
+              <>
+                <span className="title-text">Learning about your</span> <b>{item.keyword}</b><span className="title-text">...</span>
+              </>
+            </ConsultantBox.Title>
+            {boxState.showDescription && (
+              <ConsultantBox.Description className="reveal-text">
+                {item.description}
+              </ConsultantBox.Description>
+            )}
+          </ConsultantBox>
+        );
+      })}
+    </div>
   );
 }
 
