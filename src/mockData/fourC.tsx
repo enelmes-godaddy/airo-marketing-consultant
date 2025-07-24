@@ -1,4 +1,4 @@
-export const businessMockData = [
+export const fourCMockData = [
   {
     id: 'customers',
     keyword: 'customers',
