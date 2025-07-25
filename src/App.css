@@ -4,15 +4,17 @@
   /* align-items: center; */
   /* justify-content: flex-start; */
   height: 550px;
-  width: 100%;;
+  width: 100%;
   /* background: lightblue; */
 }
 
 /* Make header slide up */
 .test-header {
-  transform: translateY(250px); /* Position header manually to enable smooth transition */
+  transform: translateY(
+    250px
+  ); /* Position header manually to enable smooth transition */
   transition: transform 0.8s ease-out;
-  
+
   /* When content expands, move header to top */
   .marketing-consultant-animation:has(.expand-content) & {
     transform: translateY(0);
@@ -32,11 +34,11 @@
     flex: 1; /* Takes up remaining space when expanded */
   }
 
-  &.four-c-box-keywords {    
+  &.four-c-box-keywords {
     .four-c-boxes {
-      align-items: flex-start;
-      transform: translateX(0); /* Slide boxes left */
-      transition: transform 1s ease-out; /* Match hideText animation duration */
+      align-items: start;
+      transform: translateX(0);
+      transition: transform 1s ease-out;
     }
   }
 }
