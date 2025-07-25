@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 600px;
-  background: lightblue;
+  justify-content: flex-start;
+  height: 500px;
+  width: 100%;;
+  /* background: lightblue; */
   
   &.four-c-box-keywords {
     align-items: start;
@@ -16,11 +16,29 @@
   }
 }
 
-.content {
-  background: lightyellow;
+/* Make header slide up */
+header {
+  transform: translateY(250px); /* Position header manually to enable smooth transition */
+  transition: transform 0.8s ease-out;
+  margin: 0;
+  
+  /* When content expands, move header to top */
+  .marketing-consultant-animation:has(.expand-content) & {
+    transform: translateY(0);
+  }
+}
 
-  &.header-at-top {
-    height: 100%;
+.content {
+  /* background: lightyellow; */
+  flex: 0; /* Takes up minimum space initially */
+  transition: flex 0.8s ease-out;
+  width: 100%;
+
+  &.expand-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1; /* Takes up remaining space when expanded */
   }
 }
 
