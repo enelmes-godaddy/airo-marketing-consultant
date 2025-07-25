@@ -78,7 +78,7 @@ function App() {
       <div
         className={classnames("content", {
           "expand-content": expandContent,
-          "four-c-box-keywords": currentStage === 1 && showKeywords,
+          "four-c-box-keywords": showKeywords,
           "four-p-box-keywords": currentStage === 2 && stage2.isSequenceComplete,
         })}
       >
