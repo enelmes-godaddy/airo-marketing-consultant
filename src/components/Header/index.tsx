@@ -1,7 +1,5 @@
+import "./styles.css";
+
 export function Header({ children }: { children: React.ReactNode }) {
-  return (
-    <header>
-      <h1>{children}</h1>
-    </header>
-  );
+  return <h1 className="test-header">{children}</h1>;
 }

@@ -17,10 +17,9 @@
 }
 
 /* Make header slide up */
-header {
+.test-header {
   transform: translateY(250px); /* Position header manually to enable smooth transition */
   transition: transform 0.8s ease-out;
-  margin: 0;
   
   /* When content expands, move header to top */
   .marketing-consultant-animation:has(.expand-content) & {
