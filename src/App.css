@@ -10,9 +10,7 @@
 
 /* Make header slide up */
 .test-header {
-  transform: translateY(
-    250px
-  ); /* Position header manually to enable smooth transition */
+  transform: translateY(250px); /* Position header manually to enable smooth transition */
   transition: transform 0.8s ease-out;
 
   /* When content expands, move header to top */
@@ -38,7 +36,7 @@
     .four-c-boxes {
       align-items: start;
       transform: translateX(0);
-      transition: transform 1s ease-out;
+      transition: transform 2s ease-out;
     }
   }
 }
