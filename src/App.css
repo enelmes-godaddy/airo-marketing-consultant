@@ -25,8 +25,8 @@
 
   &.expand-content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     flex: 1; /* Takes up remaining space when expanded */
   }
 
@@ -34,6 +34,15 @@
     .four-c-boxes {
       align-items: start;
       left: 0;
+      transform: translateX(0);
+      transition: all 1s ease-out;
+    }
+  }
+
+  &.four-p-box-keywords {
+    .four-p-boxes {
+      align-items: end;
+      right: 0;
       transform: translateX(0);
       transition: all 1s ease-out;
     }
@@ -51,3 +60,16 @@
   transform: translateX(-50%);
   transition: all 1s ease-out;
 }
+
+.four-p-boxes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: fit-content;
+  position: relative;
+  right: 50%;
+  transform: translateX(-50%);
+  transition: all 1s ease-out;
+}
+
