@@ -8,6 +8,7 @@ import "./App.css";
 
 function App() {
   const [showFourCKeywords, setShowFourCKeywords] = useState(false);
+  const [expandContent, setExpandContent] = useState(false);
 
   // State for each box
   const [boxStates, setBoxStates] = useState(
@@ -20,18 +21,29 @@ function App() {
     }))
   );
 
-  // Start the first box after 2 seconds
+  // Start expansion first, before any boxes appear
   useEffect(() => {
-    const delayTimer = setTimeout(() => {
-      setBoxStates((prev) => {
-        const newStates = [...prev];
-        newStates[0].isLoading = true;
-        return newStates;
-      });
-    }, 2000);
+    const expandTimer = setTimeout(() => {
+      setExpandContent(true);
+    }, 2000); // Start expansion at the same time as original box timing
 
-    return () => clearTimeout(delayTimer);
+    return () => clearTimeout(expandTimer);
   }, []);
+
+  // Start the first box after expansion completes
+  useEffect(() => {
+    if (expandContent) {
+      const delayTimer = setTimeout(() => {
+        setBoxStates((prev) => {
+          const newStates = [...prev];
+          newStates[0].isLoading = true;
+          return newStates;
+        });
+      }, 800); // Wait for expansion animation to complete (0.8s)
+
+      return () => clearTimeout(delayTimer);
+    }
+  }, [expandContent]);
 
   // Handle sequential loading of boxes
   useEffect(() => {
@@ -47,7 +59,7 @@ function App() {
             if (index + 1 < fourCMockData.length) {
               newStates[index + 1].isLoading = true;
             }
-            
+
             return newStates;
           });
         }, loadingTime);
@@ -125,6 +137,7 @@ function App() {
     >
       <Header>Let's start by analyzing your business...</Header>
       <div className={classnames("content", {
+        "expand-content": expandContent,
         "four-c-box-keywords": showFourCKeywords,
       })}>
         <div className="four-c-boxes">
