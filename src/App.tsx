@@ -103,7 +103,7 @@ function App() {
     });
   }, [boxStates]);
 
-  // Set all boxes to completed state after all have loaded
+  // Set all boxes to completed state after all have loaded (triggers hideText)
   useEffect(() => {
     const allBoxesLoaded = boxStates.every((state) => state.isLoaded);
     const anyBoxCompleted = boxStates.some((state) => state.isCompleted);
@@ -119,17 +119,18 @@ function App() {
     }
   }, [boxStates]);
 
+  // After hideText completes, trigger the sliding and final keyword state
   useEffect(() => {
     const allBoxesCompleted = boxStates.every((state) => state.isCompleted);
 
-    if (allBoxesCompleted) {
-      const completionTimer = setTimeout(() => {
+    if (allBoxesCompleted && !showFourCKeywords) {
+      const keywordTimer = setTimeout(() => {
         setShowFourCKeywords(true);
-      }, 1500); // Short delay after all boxes completed
+      }, 1000); // Wait for hideText animation to complete (1s)
 
-      return () => clearTimeout(completionTimer);
+      return () => clearTimeout(keywordTimer);
     }
-  }, [boxStates]);
+  }, [boxStates, showFourCKeywords]);
 
   return (
     <div
