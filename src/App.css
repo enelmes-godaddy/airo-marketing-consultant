@@ -69,7 +69,7 @@
   width: fit-content;
   position: relative;
   right: 50%;
-  transform: translateX(-50%);
+  transform: translateX(50%);
   transition: all 1s ease-out;
 }
 
