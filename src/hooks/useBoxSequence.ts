@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 
 export interface BoxData {
   id: string;
+  titlePrefix: string;
   keyword: string;
+  titleSuffix: string;
   description: string;
   loadingTime: number;
 }
