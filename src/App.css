@@ -1,19 +1,11 @@
 .marketing-consultant-animation {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: flex-start; */
   height: 550px;
   width: 100%;;
   /* background: lightblue; */
-  
-  &.four-c-box-keywords {
-    align-items: start;
-    
-    .four-c-boxes {
-      align-items: start;
-    }
-  }
 }
 
 /* Make header slide up */
@@ -38,6 +30,14 @@
     flex-direction: column;
     justify-content: center;
     flex: 1; /* Takes up remaining space when expanded */
+  }
+
+  &.four-c-box-keywords {    
+    .four-c-boxes {
+      align-items: flex-start;
+      transform: translateX(0); /* Slide boxes left */
+      transition: transform 1s ease-out; /* Match hideText animation duration */
+    }
   }
 }
 
