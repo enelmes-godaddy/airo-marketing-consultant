@@ -23,6 +23,7 @@
   transition: flex 0.8s ease-out;
   width: 100%;
   max-width: 840px;
+  margin: 0 auto;
 
   &.expand-content {
     display: flex;
@@ -53,7 +54,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
 
     .four-c-boxes {
@@ -103,10 +104,7 @@
   align-items: center;
   gap: 16px;
   width: fit-content;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  flex-shrink: 0;
 }
 
 .center-box.fade-in {
@@ -116,11 +114,11 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: scale(0.8);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
   }
 }
 

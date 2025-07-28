@@ -157,6 +157,34 @@ function App() {
           </div>
         )}
 
+        {/* Stage 3: Center box and arrows - positioned between left and right boxes */}
+        {currentStage === 3 && (
+          <>
+            {/* Arrows animation */}
+            <ConsultantArrows isVisible={showArrows} />
+            
+            {/* Center box with fade-in */}
+            {showCenterBox && (
+              <div className={classnames("center-box", "fade-in")}>
+                {stageConfig[3].data.map((item) => (
+                  <ConsultantBox
+                    key={item.id}
+                    className={`box-${item.keyword.toLowerCase()}`}
+                    isLoading={false}
+                    isLoaded={true}
+                    isCompleted={false}
+                    loadingDuration={0}
+                  >
+                    <ConsultantBox.Title>
+                      <b>{item.keyword}</b>
+                    </ConsultantBox.Title>
+                  </ConsultantBox>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
         {/* Stage 2 boxes */}
         {currentStage >= 2 && (
           <div className={classnames("four-p-boxes", {
@@ -195,34 +223,6 @@ function App() {
               );
             })}
           </div>
-        )}
-
-        {/* Stage 3: Arrows and center box */}
-        {currentStage === 3 && (
-          <>
-            {/* Arrows animation */}
-            <ConsultantArrows isVisible={showArrows} />
-            
-            {/* Center box with fade-in */}
-            {showCenterBox && (
-              <div className={classnames("center-box", "fade-in")}>
-                {stageConfig[3].data.map((item) => (
-                  <ConsultantBox
-                    key={item.id}
-                    className={`box-${item.keyword.toLowerCase()}`}
-                    isLoading={false}
-                    isLoaded={true}
-                    isCompleted={false}
-                    loadingDuration={0}
-                  >
-                    <ConsultantBox.Title>
-                      <b>{item.keyword}</b>
-                    </ConsultantBox.Title>
-                  </ConsultantBox>
-                ))}
-              </div>
-            )}
-          </>
         )}
       </div>
     </div>
