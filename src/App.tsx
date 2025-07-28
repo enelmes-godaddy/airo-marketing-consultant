@@ -182,6 +182,9 @@ function App() {
                 ))}
               </div>
             )}
+
+            {/* Arrows animation */}
+            <ConsultantArrows isVisible={showArrows} className="arrows-mirrored"/>
           </>
         )}
 
