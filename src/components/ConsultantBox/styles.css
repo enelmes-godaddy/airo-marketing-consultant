@@ -33,7 +33,6 @@
   }
 
   &.consultant-box--loaded {
-    max-width: fit-content;
     gap: 0;
 
     &::after {

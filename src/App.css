@@ -9,7 +9,9 @@
 
 /* Make header slide up */
 .consultant-header {
-  transform: translateY(250px); /* Position header manually to enable smooth transition */
+  transform: translateY(
+    250px
+  ); /* Position header manually to enable smooth transition */
   transition: transform 0.8s ease-out;
 
   /* When content expands, move header to top */
@@ -102,7 +104,7 @@
   transform: translateX(50%);
   transition: all 1s ease-out;
 
-    &.stage-complete {
+  &.stage-complete {
     .consultant-box {
       width: -webkit-fill-available;
     }
