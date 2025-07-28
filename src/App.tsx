@@ -1,5 +1,6 @@
 import classnames from "classnames";
 import { useState, useEffect } from "react";
+import { ConsultantArrows } from "./components/ConsultantArrows";
 import { ConsultantBox } from "./components/ConsultantBox";
 import { ConsultantHeader } from "./components/ConsultantHeader";
 import { fourCData } from "./data/fourC";
@@ -199,12 +200,8 @@ function App() {
         {/* Stage 3: Arrows and center box */}
         {currentStage === 3 && (
           <>
-            {/* TODO: Add SVG arrows here */}
-            {showArrows && (
-              <div className="arrows-container">
-                {/* Arrows will be implemented as SVG elements */}
-              </div>
-            )}
+            {/* Arrows animation */}
+            <ConsultantArrows isVisible={showArrows} />
             
             {/* Center box with fade-in */}
             {showCenterBox && (
