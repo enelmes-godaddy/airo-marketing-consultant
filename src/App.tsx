@@ -3,150 +3,93 @@ import { useState, useEffect } from "react";
 import { ConsultantBox } from "./components/ConsultantBox";
 import { Header } from "./components/Header";
 import { fourCMockData } from "./mockData/fourC";
+import { fourPMockData } from "./mockData/fourP";
+import { useBoxSequence } from "./hooks/useBoxSequence";
 
 import "./App.css";
 
-function App() {
-  const [showFourCKeywords, setShowFourCKeywords] = useState(false);
-  const [expandContent, setExpandContent] = useState(false);
+// Configuration for each stage
+const stageConfig = {
+  1: {
+    data: fourCMockData,
+    headerText: "Let's start by analyzing your business...",
+    direction: 'left' as const,
+  },
+  2: {
+    data: fourPMockData,
+    headerText: "Next, I'll use the 4P approach to create your plan...",
+    direction: 'right' as const,
+  },
+} as const;
 
-  // State for each box
-  const [boxStates, setBoxStates] = useState(
-    fourCMockData.map(() => ({
-      isLoading: false,
-      isLoaded: false,
-      isCompleted: false,
-      showDescription: false,
-      startLoadingBar: false,
-    }))
-  );
+function App() {
+  const [currentStage, setCurrentStage] = useState<1 | 2>(1);
+  const [expandContent, setExpandContent] = useState(false);
+  const [showKeywords, setShowKeywords] = useState(false);
+
+  // Initialize box sequences for both stages
+  const stage1 = useBoxSequence(stageConfig[1].data, false);
+  const stage2 = useBoxSequence(stageConfig[2].data, false);
+
+  const currentStageConfig = stageConfig[currentStage];
 
   // Start expansion first, before any boxes appear
   useEffect(() => {
     const expandTimer = setTimeout(() => {
       setExpandContent(true);
-    }, 2000); // Start expansion at the same time as original box timing
+    }, 2000);
 
     return () => clearTimeout(expandTimer);
   }, []);
 
-  // Start the first box after expansion completes
+  // Start the first stage sequence after expansion completes
   useEffect(() => {
-    if (expandContent) {
-      const delayTimer = setTimeout(() => {
-        setBoxStates((prev) => {
-          const newStates = [...prev];
-          newStates[0].isLoading = true;
-          return newStates;
-        });
-      }, 800); // Wait for expansion animation to complete (0.8s)
-
-      return () => clearTimeout(delayTimer);
+    if (expandContent && currentStage === 1) {
+      stage1.startSequence();
     }
-  }, [expandContent]);
+  }, [expandContent, currentStage, stage1]);
 
-  // Handle sequential loading of boxes
+  // Handle stage 1 completion - trigger sliding to keywords
   useEffect(() => {
-    boxStates.forEach((boxState, index) => {
-      if (boxState.startLoadingBar && !boxState.isLoaded) {
-        const loadingTime = fourCMockData[index].loadingTime;
-        const completionTimer = setTimeout(() => {
-          setBoxStates((prev) => {
-            const newStates = [...prev];
-            newStates[index].isLoaded = true;
-
-            // Start the next box if it exists
-            if (index + 1 < fourCMockData.length) {
-              newStates[index + 1].isLoading = true;
-            }
-
-            return newStates;
-          });
-        }, loadingTime);
-
-        return () => clearTimeout(completionTimer);
-      }
-    });
-  }, [boxStates]);
-
-  // Handle description fade-in with delay
-  useEffect(() => {
-    boxStates.forEach((boxState, index) => {
-      if (boxState.isLoading && !boxState.showDescription) {
-        const descriptionTimer = setTimeout(() => {
-          setBoxStates((prev) => {
-            const newStates = [...prev];
-            newStates[index].showDescription = true;
-            return newStates;
-          });
-        }, 800); // Short delay for description to fade in
-
-        return () => clearTimeout(descriptionTimer);
-      }
-    });
-  }, [boxStates]);
-
-  // Start loading bar animation after description is fully revealed
-  useEffect(() => {
-    boxStates.forEach((boxState, index) => {
-      if (boxState.showDescription && !boxState.startLoadingBar) {
-        const loadingBarTimer = setTimeout(() => {
-          setBoxStates((prev) => {
-            const newStates = [...prev];
-            newStates[index].startLoadingBar = true;
-            return newStates;
-          });
-        }, 1000); // Wait for description reveal animation to complete (1s)
-
-        return () => clearTimeout(loadingBarTimer);
-      }
-    });
-  }, [boxStates]);
-
-  // Set all boxes to completed state after all have loaded (triggers hideText)
-  useEffect(() => {
-    const allBoxesLoaded = boxStates.every((state) => state.isLoaded);
-    const anyBoxCompleted = boxStates.some((state) => state.isCompleted);
-
-    if (allBoxesLoaded && !anyBoxCompleted) {
-      const completionTimer = setTimeout(() => {
-        setBoxStates((prev) =>
-          prev.map((state) => ({ ...state, isCompleted: true }))
-        );
-      }, 1500); // Short delay after all boxes are loaded
-
-      return () => clearTimeout(completionTimer);
-    }
-  }, [boxStates]);
-
-  // After hideText completes, trigger the sliding and final keyword state
-  useEffect(() => {
-    const allBoxesCompleted = boxStates.every((state) => state.isCompleted);
-
-    if (allBoxesCompleted && !showFourCKeywords) {
+    if (currentStage === 1 && stage1.isSequenceComplete && !showKeywords) {
       const keywordTimer = setTimeout(() => {
-        setShowFourCKeywords(true);
-      }, 1000); // Wait for hideText animation to complete (1s)
+        setShowKeywords(true);
+      }, 1000); // Wait for hideText animation to complete
 
       return () => clearTimeout(keywordTimer);
     }
-  }, [boxStates, showFourCKeywords]);
+  }, [currentStage, stage1.isSequenceComplete, showKeywords]);
+
+  // Handle stage 1 keywords completion - start stage 2
+  useEffect(() => {
+    if (currentStage === 1 && showKeywords) {
+      const stage2Timer = setTimeout(() => {
+        setCurrentStage(2);
+        stage2.startSequence();
+      }, 2000); // Wait for stage 1 sliding animation to complete
+
+      return () => clearTimeout(stage2Timer);
+    }
+  }, [currentStage, showKeywords, stage2]);
 
   return (
-    <div
-      className={classnames("marketing-consultant-animation")}
-    >
-      <Header>Let's start by analyzing your business...</Header>
-      <div className={classnames("content", {
-        "expand-content": expandContent,
-        "four-c-box-keywords": showFourCKeywords,
-      })}>
-        <div className="four-c-boxes">
-          {fourCMockData.map((item, index) => {
-              const boxState = boxStates[index];
+    <div className="marketing-consultant-animation">
+      <Header className={currentStage === 2 ? "fade-down" : ""}>{currentStageConfig.headerText}</Header>
+      <div
+        className={classnames("content", {
+          "expand-content": expandContent,
+          "four-c-box-keywords": showKeywords,
+          "four-p-box-keywords": currentStage === 2 && stage2.isSequenceComplete,
+        })}
+      >
+        {/* Stage 1 boxes */}
+        {(currentStage === 1 || showKeywords) && (
+          <div className={classnames("four-c-boxes", {
+            "stage-complete": showKeywords
+          })}>
+            {stageConfig[1].data.map((item, index) => {
+              const boxState = stage1.boxStates[index];
 
-              // Only render the box if it's loading or has been loaded
-              // This ensures boxes only appear when it's their turn
               if (!boxState.isLoading && !boxState.isLoaded) {
                 return null;
               }
@@ -162,8 +105,9 @@ function App() {
                 >
                   <ConsultantBox.Title>
                     <>
-                      <span className="title-text">Learning about your</span>{" "}
+                      <span className="title-text">{item.titlePrefix}</span>{" "}
                       <b>{item.keyword}</b>
+                      {item.titleSuffix && <span className="title-text"> {item.titleSuffix}</span>}
                       <span className="title-text">...</span>
                     </>
                   </ConsultantBox.Title>
@@ -176,6 +120,47 @@ function App() {
               );
             })}
           </div>
+        )}
+
+        {/* Stage 2 boxes */}
+        {currentStage === 2 && (
+          <div className={classnames("four-p-boxes", {
+            "stage-complete": stage2.isSequenceComplete
+          })}>
+            {stageConfig[2].data.map((item, index) => {
+              const boxState = stage2.boxStates[index];
+
+              if (!boxState.isLoading && !boxState.isLoaded) {
+                return null;
+              }
+
+              return (
+                <ConsultantBox
+                  key={item.id}
+                  className={`box-${item.keyword}`}
+                  isLoading={boxState.startLoadingBar}
+                  isLoaded={boxState.isLoaded}
+                  isCompleted={boxState.isCompleted}
+                  loadingDuration={item.loadingTime}
+                >
+                  <ConsultantBox.Title>
+                    <>
+                      <span className="title-text">{item.titlePrefix}</span>{" "}
+                      <b>{item.keyword}</b>
+                      {item.titleSuffix && <span className="title-text"> {item.titleSuffix}</span>}
+                      <span className="title-text">...</span>
+                    </>
+                  </ConsultantBox.Title>
+                  {boxState.showDescription && (
+                    <ConsultantBox.Description className="reveal-text">
+                      {item.description}
+                    </ConsultantBox.Description>
+                  )}
+                </ConsultantBox>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
