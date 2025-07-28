@@ -1,4 +1,4 @@
-export const fourPMockData = [
+export const fourPData = [
   {
     id: 'product',
     titlePrefix: 'Finding',

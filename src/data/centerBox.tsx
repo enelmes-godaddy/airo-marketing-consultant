@@ -1,4 +1,4 @@
-export const centerBoxMockData = [
+export const centerBoxData = [
   {
     id: 'marketing',
     titlePrefix: '',

@@ -2,9 +2,9 @@ import classnames from "classnames";
 import { useState, useEffect } from "react";
 import { ConsultantBox } from "./components/ConsultantBox";
 import { Header } from "./components/Header";
-import { fourCMockData } from "./mockData/fourC";
-import { fourPMockData } from "./mockData/fourP";
-import { centerBoxMockData } from "./mockData/centerBox";
+import { fourCData } from "./data/fourC";
+import { fourPData } from "./data/fourP";
+import { centerBoxData } from "./data/centerBox";
 import { useBoxSequence } from "./hooks/useBoxSequence";
 
 import "./App.css";
@@ -12,17 +12,17 @@ import "./App.css";
 // Configuration for each stage
 const stageConfig = {
   1: {
-    data: fourCMockData,
+    data: fourCData,
     headerText: "Let's start by analyzing your business...",
     direction: 'left' as const,
   },
   2: {
-    data: fourPMockData,
+    data: fourPData,
     headerText: "Next, I'll use the 4P approach to create your plan...",
     direction: 'right' as const,
   },
   3: {
-    data: centerBoxMockData,
+    data: centerBoxData,
     headerText: "Now, let's bring it all together...",
     direction: 'center' as const,
   },
