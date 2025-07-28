@@ -47,6 +47,28 @@
       transition: all 1s ease-out;
     }
   }
+
+  &.center-box-visible {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+
+    .four-c-boxes {
+      position: static;
+      left: auto;
+      transform: none;
+      align-self: flex-start;
+    }
+
+    .four-p-boxes {
+      position: static;
+      right: auto;
+      transform: none;
+      align-self: flex-start;
+    }
+  }
 }
 
 .four-c-boxes {
@@ -71,6 +93,46 @@
   right: 50%;
   transform: translateX(50%);
   transition: all 1s ease-out;
+}
+
+/* Stage 3: Center box positioning */
+.center-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.center-box.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Arrows container for stage 3 */
+.arrows-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
 }
 
 .test-header.fade-down {

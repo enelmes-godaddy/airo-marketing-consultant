@@ -4,6 +4,7 @@ import { ConsultantBox } from "./components/ConsultantBox";
 import { Header } from "./components/Header";
 import { fourCMockData } from "./mockData/fourC";
 import { fourPMockData } from "./mockData/fourP";
+import { centerBoxMockData } from "./mockData/centerBox";
 import { useBoxSequence } from "./hooks/useBoxSequence";
 
 import "./App.css";
@@ -20,14 +21,21 @@ const stageConfig = {
     headerText: "Next, I'll use the 4P approach to create your plan...",
     direction: 'right' as const,
   },
+  3: {
+    data: centerBoxMockData,
+    headerText: "Now, let's bring it all together...",
+    direction: 'center' as const,
+  },
 } as const;
 
 function App() {
-  const [currentStage, setCurrentStage] = useState<1 | 2>(1);
+  const [currentStage, setCurrentStage] = useState<1 | 2 | 3>(1);
   const [expandContent, setExpandContent] = useState(false);
   const [showKeywords, setShowKeywords] = useState(false);
+  const [showArrows, setShowArrows] = useState(false);
+  const [showCenterBox, setShowCenterBox] = useState(false);
 
-  // Initialize box sequences for both stages
+  // Initialize box sequences for stages 1 and 2 only
   const stage1 = useBoxSequence(stageConfig[1].data, false);
   const stage2 = useBoxSequence(stageConfig[2].data, false);
 
@@ -72,6 +80,29 @@ function App() {
     }
   }, [currentStage, showKeywords, stage2]);
 
+  // Handle stage 2 completion - start stage 3 with arrows
+  useEffect(() => {
+    if (currentStage === 2 && stage2.isSequenceComplete) {
+      const stage3Timer = setTimeout(() => {
+        setCurrentStage(3);
+        setShowArrows(true);
+      }, 2000); // Wait for stage 2 sliding animation to complete
+
+      return () => clearTimeout(stage3Timer);
+    }
+  }, [currentStage, stage2.isSequenceComplete]);
+
+  // Handle arrows completion - show center box
+  useEffect(() => {
+    if (currentStage === 3 && showArrows && !showCenterBox) {
+      const centerBoxTimer = setTimeout(() => {
+        setShowCenterBox(true);
+      }, 2000); // Wait for arrow animation to complete
+
+      return () => clearTimeout(centerBoxTimer);
+    }
+  }, [currentStage, showArrows, showCenterBox]);
+
   return (
     <div className="marketing-consultant-animation">
       <Header className={currentStage === 2 ? "fade-down" : ""}>{currentStageConfig.headerText}</Header>
@@ -79,7 +110,10 @@ function App() {
         className={classnames("content", {
           "expand-content": expandContent,
           "four-c-box-keywords": showKeywords,
-          "four-p-box-keywords": currentStage === 2 && stage2.isSequenceComplete,
+          "four-p-box-keywords": currentStage >= 2 && stage2.isSequenceComplete,
+          "center-box-visible": currentStage === 3,
+          "show-arrows": showArrows,
+          "show-center-box": showCenterBox,
         })}
       >
         {/* Stage 1 boxes */}
@@ -123,7 +157,7 @@ function App() {
         )}
 
         {/* Stage 2 boxes */}
-        {currentStage === 2 && (
+        {currentStage >= 2 && (
           <div className={classnames("four-p-boxes", {
             "stage-complete": stage2.isSequenceComplete
           })}>
@@ -160,6 +194,38 @@ function App() {
               );
             })}
           </div>
+        )}
+
+        {/* Stage 3: Arrows and center box */}
+        {currentStage === 3 && (
+          <>
+            {/* TODO: Add SVG arrows here */}
+            {showArrows && (
+              <div className="arrows-container">
+                {/* Arrows will be implemented as SVG elements */}
+              </div>
+            )}
+            
+            {/* Center box with fade-in */}
+            {showCenterBox && (
+              <div className={classnames("center-box", "fade-in")}>
+                {stageConfig[3].data.map((item) => (
+                  <ConsultantBox
+                    key={item.id}
+                    className={`box-${item.keyword.toLowerCase()}`}
+                    isLoading={false}
+                    isLoaded={true}
+                    isCompleted={false}
+                    loadingDuration={0}
+                  >
+                    <ConsultantBox.Title>
+                      <b>{item.keyword}</b>
+                    </ConsultantBox.Title>
+                  </ConsultantBox>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
