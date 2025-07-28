@@ -74,7 +74,7 @@ function App() {
 
   return (
     <div className="marketing-consultant-animation">
-      <Header>{currentStageConfig.headerText}</Header>
+      <Header className={currentStage === 2 ? "fade-down" : ""}>{currentStageConfig.headerText}</Header>
       <div
         className={classnames("content", {
           "expand-content": expandContent,
