@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { useState, useEffect } from "react";
 import { ConsultantBox } from "./components/ConsultantBox";
-import { Header } from "./components/Header";
+import { ConsultantHeader } from "./components/ConsultantHeader";
 import { fourCData } from "./data/fourC";
 import { fourPData } from "./data/fourP";
 import { centerBoxData } from "./data/centerBox";
@@ -105,7 +105,7 @@ function App() {
 
   return (
     <div className="marketing-consultant-animation">
-      <Header className={currentStage === 2 ? "fade-down" : ""}>{currentStageConfig.headerText}</Header>
+      <ConsultantHeader className={currentStage === 2 ? "fade-down" : ""}>{currentStageConfig.headerText}</ConsultantHeader>
       <div
         className={classnames("content", {
           "expand-content": expandContent,

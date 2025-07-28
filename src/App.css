@@ -8,7 +8,7 @@
 }
 
 /* Make header slide up */
-.test-header {
+.consultant-header {
   transform: translateY(250px); /* Position header manually to enable smooth transition */
   transition: transform 0.8s ease-out;
 
@@ -135,7 +135,7 @@
   z-index: 5;
 }
 
-.test-header.fade-down {
+.consultant-header.fade-down {
   animation: fadeDown 0.5s ease-in-out;
 }
 

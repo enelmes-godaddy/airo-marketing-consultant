@@ -1,11 +1,11 @@
 import "./styles.css";
 
-export function Header({
+export function ConsultantHeader({
   className,
   children,
 }: {
   className?: string;
   children: React.ReactNode;
 }) {
-  return <h1 className={`test-header ${className}`}>{children}</h1>;
+  return <h1 className={`consultant-header ${className}`}>{children}</h1>;
 }
