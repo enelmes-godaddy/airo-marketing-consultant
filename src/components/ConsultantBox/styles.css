@@ -2,7 +2,7 @@
   --boxBorderRadius: 8px;
   --boxWidth: 420px;
   align-items: center;
-  animation: slideInFromTop 0.6s ease-out;
+  animation: slideInFromTop 0.6s cubic-bezier(0.68, -0.35, 0.265, 1.35);
   background: #E9E4F2;
   box-sizing: border-box;
   border-radius: var(--boxBorderRadius);
