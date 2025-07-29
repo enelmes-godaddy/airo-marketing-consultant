@@ -53,20 +53,6 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-
-    .four-c-boxes {
-      position: static;
-      left: auto;
-      transform: none;
-      align-self: flex-start;
-    }
-
-    .four-p-boxes {
-      position: static;
-      right: auto;
-      transform: none;
-      align-self: flex-start;
-    }
   }
 }
 
@@ -75,7 +61,6 @@
   flex-direction: column;
   gap: 16px;
   position: relative;
-  transition: all 1s ease-out;
 
   &.stage-complete {
     .consultant-box {
@@ -96,12 +81,26 @@
 }
 
 /* Stage 3: Center box */
+.stage-3-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.arrows-container {
+  height: 295.5px;
+  width: 122px;
+}
+
 .center-box.fade-in {
   animation: fadeIn 1s ease-in-out;
 
-  .box-center {
+  .box-marketing-plan {
     width: fit-content !important;
-}
+  }
 }
 
 @keyframes fadeIn {
@@ -115,6 +114,7 @@
   }
 }
 
+/* Page header */
 .consultant-header.fade-down {
   animation: fadeDown 0.5s ease-in-out;
 }
@@ -128,18 +128,4 @@
     transform: translateY(0);
     opacity: 1;
   }
-}
-
-.stage-3-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.arrows-container {
-  height: 295.5px;
-  width: 122px;
 }

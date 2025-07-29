@@ -178,7 +178,7 @@ function App() {
                 {stageConfig[3].data.map((item) => (
                   <ConsultantBox
                     key={item.id}
-                    className="box-center"
+                    className="box-marketing-plan"
                     isLoading={false}
                     isLoaded={true}
                     isCompleted={false}
