@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { ConsultantArrows } from "./components/ConsultantArrows";
 import { ConsultantBox } from "./components/ConsultantBox";
 import { ConsultantHeader } from "./components/ConsultantHeader";
+import { centerBoxData } from "./data/centerBox";
 import { fourCData } from "./data/fourC";
 import { fourPData } from "./data/fourP";
-import { centerBoxData } from "./data/centerBox";
 import { useBoxSequence } from "./hooks/useBoxSequence";
 
 import "./App.css";
