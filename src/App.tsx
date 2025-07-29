@@ -43,7 +43,7 @@ function App() {
 
   const currentStageConfig = stageConfig[currentStage];
 
-  // Start expansion first, before any boxes appear
+  // Start content expansion before any boxes appear
   useEffect(() => {
     const expandTimer = setTimeout(() => {
       setExpandContent(true);
@@ -52,14 +52,14 @@ function App() {
     return () => clearTimeout(expandTimer);
   }, []);
 
-  // Start the first stage sequence after expansion completes
+  // Start stage 1 box sequence after content expansion completes
   useEffect(() => {
     if (expandContent && currentStage === 1) {
       stage1.startSequence();
     }
   }, [expandContent, currentStage, stage1]);
 
-  // Handle stage 1 completion - trigger sliding to keywords
+  // Handle stage 1 completion - trigger keyword sliding animation
   useEffect(() => {
     if (
       currentStage === 1 &&
@@ -74,19 +74,19 @@ function App() {
     }
   }, [currentStage, stage1.isSequenceComplete, showStage1Keywords]);
 
-  // Handle stage 1 keywords completion - start stage 2
+  // Handle stage 1 keyword completion - start stage 2
   useEffect(() => {
     if (currentStage === 1 && showStage1Keywords) {
       const stage2Timer = setTimeout(() => {
         setCurrentStage(2);
         stage2.startSequence();
-      }, 2000); // Wait for stage 1 sliding animation to complete
+      }, 2000); // Wait for stage 1 keyword sliding animation to complete
 
       return () => clearTimeout(stage2Timer);
     }
   }, [currentStage, showStage1Keywords, stage2]);
 
-  // Handle stage 2 completion - trigger sliding to keywords (same pattern as stage 1)
+  // Handle stage 2 completion - trigger keyword sliding animation
   useEffect(() => {
     if (
       currentStage === 2 &&
@@ -101,19 +101,19 @@ function App() {
     }
   }, [currentStage, stage2.isSequenceComplete, showStage2Keywords]);
 
-  // Handle stage 2 keywords completion - start stage 3 with arrows
+  // Handle stage 2 keyword completion - start stage 3
   useEffect(() => {
     if (currentStage === 2 && showStage2Keywords) {
       const stage3Timer = setTimeout(() => {
         setCurrentStage(3);
         setShowArrows(true);
-      }, 2000); // Wait for stage 2 sliding animation to complete
+      }, 2000); // Wait for stage 2 keyword sliding animation to complete
 
       return () => clearTimeout(stage3Timer);
     }
   }, [currentStage, showStage2Keywords]);
 
-  // Handle arrows completion - show center box
+  // Handle stage 3 arrows completion - show center box
   useEffect(() => {
     if (currentStage === 3 && showArrows && !showCenterBox) {
       const centerBoxTimer = setTimeout(() => {
@@ -186,7 +186,7 @@ function App() {
           </div>
         )}
 
-        {/* Stage 3: Center box and arrows - positioned between left and right boxes */}
+        {/* Stage 3: Arrows and center box */}
         {currentStage === 3 && (
           <div className="stage-3-wrapper">
             {/* Arrows animation */}
