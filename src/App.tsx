@@ -159,10 +159,13 @@ function App() {
 
         {/* Stage 3: Center box and arrows - positioned between left and right boxes */}
         {currentStage === 3 && (
-          <>
+          <div className="stage-3-wrapper">
             {/* Arrows animation */}
-            <ConsultantArrows isVisible={showArrows} />
-            
+            <ConsultantArrows
+              className="arrows-container"
+              isVisible={showArrows}
+            />
+
             {/* Center box with fade-in */}
             {showCenterBox && (
               <div className={classnames("center-box", "fade-in")}>
@@ -184,8 +187,11 @@ function App() {
             )}
 
             {/* Arrows animation */}
-            <ConsultantArrows isVisible={showArrows} className="arrows-mirrored"/>
-          </>
+            <ConsultantArrows
+              className="arrows-container arrows-mirrored"
+              isVisible={showArrows}
+            />
+          </div>
         )}
 
         {/* Stage 2 boxes */}
