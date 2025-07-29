@@ -122,7 +122,7 @@ function App() {
         {/* Stage 1 boxes */}
         {(currentStage === 1 || showKeywords) && (
           <div
-            className={classnames("four-c-boxes", {
+            className={classnames("keyword-boxes four-c-boxes", {
               "stage-complete": showKeywords,
             })}
           >
@@ -203,7 +203,7 @@ function App() {
         {/* Stage 2 boxes */}
         {currentStage >= 2 && (
           <div
-            className={classnames("four-p-boxes", {
+            className={classnames("keyword-boxes four-p-boxes", {
               "stage-complete": stage2.isSequenceComplete,
             })}
           >

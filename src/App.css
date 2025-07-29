@@ -5,9 +5,8 @@
 
 /* Make header slide up */
 .consultant-header {
-  transform: translateY(
-    250px
-  ); /* Position header manually to enable smooth transition */
+  /* Position header manually to enable smooth transition */
+  transform: translateY(250px);
   transition: transform 0.8s ease-out;
 
   /* When content expands, move header to top */
@@ -71,50 +70,38 @@
   }
 }
 
-.four-c-boxes {
+.keyword-boxes {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
-  max-width: fit-content;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   transition: all 1s ease-out;
 
   &.stage-complete {
     .consultant-box {
-      width: -webkit-fill-available;
+      padding: 24px 0;
+      width: 180px;
     }
   }
 }
 
+.four-c-boxes {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .four-p-boxes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: fit-content;
-  position: relative;
   right: 50%;
   transform: translateX(50%);
-  transition: all 1s ease-out;
-
-  &.stage-complete {
-    .consultant-box {
-      width: -webkit-fill-available;
-    }
-  }
 }
 
 /* Stage 3: Center box */
 .center-box.fade-in {
   animation: fadeIn 1s ease-in-out;
-  width: fit-content;
-}
 
-.box-center {
-  width: fit-content !important;
+  .box-center {
+    width: fit-content !important;
+}
 }
 
 @keyframes fadeIn {
