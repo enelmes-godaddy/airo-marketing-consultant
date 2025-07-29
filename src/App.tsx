@@ -118,7 +118,7 @@ function App() {
     if (currentStage === 3 && showArrows && !showCenterBox) {
       const centerBoxTimer = setTimeout(() => {
         setShowCenterBox(true);
-      }, 600); // Wait for arrow animation to complete
+      }, 600); // Delay before showing center box
 
       return () => clearTimeout(centerBoxTimer);
     }
