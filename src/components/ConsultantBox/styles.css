@@ -12,7 +12,7 @@
   overflow: hidden;
   padding: 24px;
   text-align: center;
-  transition: height 0.4s ease-out, max-width 1s ease-out; /* max-width transition needs to match the four-c-boxes transition */
+  transition: all 1s ease-out;
 
   &.consultant-box--loading {
     position: relative;
