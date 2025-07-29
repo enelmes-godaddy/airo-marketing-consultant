@@ -8,7 +8,7 @@
   flex-direction: column;
   font-weight: 400;
   gap: 16px;
-  max-width: 400px;
+  max-width: 380px;
   overflow: hidden;
   padding: 24px;
   text-align: center;
@@ -34,6 +34,7 @@
 
   &.consultant-box--loaded {
     gap: 0;
+    width: 380px;
 
     &::after {
       display: none;
