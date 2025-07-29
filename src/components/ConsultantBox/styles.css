@@ -1,14 +1,15 @@
 .consultant-box {
-  --boxBorderRadius: 12px;
+  --boxBorderRadius: 8px;
+  --boxWidth: 420px;
   align-items: center;
   animation: slideInFromTop 0.6s ease-out;
   background: #E9E4F2;
+  box-sizing: border-box;
   border-radius: var(--boxBorderRadius);
   display: flex;
   flex-direction: column;
-  font-weight: 400;
   gap: 16px;
-  max-width: 380px;
+  max-width: var(--boxWidth);
   overflow: hidden;
   padding: 24px;
   text-align: center;
@@ -34,7 +35,7 @@
 
   &.consultant-box--loaded {
     gap: 0;
-    width: 380px;
+    width: var(--boxWidth);
 
     &::after {
       display: none;
