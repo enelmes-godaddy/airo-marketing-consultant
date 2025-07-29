@@ -17,7 +17,7 @@
 
 .content {
   flex: 0; /* Takes up minimum space initially */
-  transition: flex 0.8s ease-out;
+  transition: flex 0.8s ease-out; /* Match to first box start delay */
   width: 100%;
   max-width: 840px;
   margin: 0 auto;

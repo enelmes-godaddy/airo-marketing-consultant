@@ -51,7 +51,7 @@ export function useBoxSequence(
           newStates[0].isLoading = true;
           return newStates;
         });
-      }, 600); // Wait for expansion animation to complete (0.6s)
+      }, 800); // Wait for expansion animation to complete (0.8s)
 
       return () => clearTimeout(delayTimer);
     }
