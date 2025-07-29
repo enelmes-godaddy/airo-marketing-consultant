@@ -67,9 +67,15 @@ export function useBoxSequence(
             const newStates = [...prev];
             newStates[index].isLoaded = true;
 
-            // Start the next box if it exists
+            // Start next box if it exists – with a small delay
             if (index + 1 < data.length) {
-              newStates[index + 1].isLoading = true;
+              setTimeout(() => {
+                setBoxStates((prev) => {
+                  const nextStates = [...prev];
+                  nextStates[index + 1].isLoading = true;
+                  return nextStates;
+                });
+              }, 300); // Delay before next box appears
             }
 
             return newStates;

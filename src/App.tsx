@@ -68,7 +68,7 @@ function App() {
     ) {
       const keywordTimer = setTimeout(() => {
         setShowStage1Keywords(true);
-      }, 1000); // Wait for hideText animation to complete
+      }, 600); // Wait for hideText animation to complete
 
       return () => clearTimeout(keywordTimer);
     }
@@ -95,7 +95,7 @@ function App() {
     ) {
       const keywordTimer = setTimeout(() => {
         setShowStage2Keywords(true);
-      }, 1000); // Wait for hideText animation to complete
+      }, 600); // Wait for hideText animation to complete
 
       return () => clearTimeout(keywordTimer);
     }
@@ -118,7 +118,7 @@ function App() {
     if (currentStage === 3 && showArrows && !showCenterBox) {
       const centerBoxTimer = setTimeout(() => {
         setShowCenterBox(true);
-      }, 1000); // Wait for arrow animation to complete
+      }, 600); // Delay before showing center box
 
       return () => clearTimeout(centerBoxTimer);
     }

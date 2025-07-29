@@ -7,7 +7,7 @@
 .consultant-header {
   /* Position header manually to enable smooth transition */
   transform: translateY(250px);
-  transition: transform 0.8s ease-out;
+  transition: transform 0.6s ease-out;
 
   /* When content expands, move header to top */
   .marketing-consultant-animation:has(.expand-content) & {
@@ -17,7 +17,7 @@
 
 .content {
   flex: 0; /* Takes up minimum space initially */
-  transition: flex 0.8s ease-out;
+  transition: flex 0.8s ease-out; /* Match to first box start delay */
   width: 100%;
   max-width: 840px;
   margin: 0 auto;
@@ -91,12 +91,12 @@
 }
 
 .arrows-container {
-  height: 295.5px;
-  width: 122px;
+  height: 290px;
+  width: 118px;
 }
 
 .center-box.fade-in {
-  animation: fadeIn 1s ease-in-out;
+  animation: fadeIn 0.6s ease-out;
 
   .box-marketing-plan {
     width: fit-content !important;
@@ -116,7 +116,7 @@
 
 /* Page header */
 .consultant-header.fade-down {
-  animation: fadeDown 0.5s ease-in-out;
+  animation: fadeDown 0.5s ease-out;
 }
 
 @keyframes fadeDown {
