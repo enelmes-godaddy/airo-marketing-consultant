@@ -44,7 +44,8 @@
 
 .consultant-box__title {
   animation: fadeDown 0.5s ease-in-out;
-  font-size: 1.5rem;
+  font-size: 24.75px;
+  line-height: 1.3;
   
   .consultant-box--completed & span.title-text {
     animation: hideText 1s ease-in-out forwards;
@@ -53,6 +54,7 @@
 
 .consultant-box__description {
   font-size: 1rem;
+  line-height: 1.5;
   margin-block-end: 0.25rem;
   transition: all 0.3s ease-in-out;
 
