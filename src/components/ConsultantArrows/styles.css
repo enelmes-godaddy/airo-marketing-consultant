@@ -14,16 +14,16 @@
 
 /* Arrow lines - animate first */
 .animated-arrows path:not(:last-child) {
-  animation: drawArrows 20s linear forwards;
+  animation: drawLines 3s linear forwards;
 }
 
 /* Arrowhead - animate last */
 .animated-arrows path:last-child {
-  animation: drawArrows 1s linear forwards;
-  animation-delay: 20s;
+  animation: drawLines 1s linear forwards;
+  animation-delay: 0.5s;
 }
 
-@keyframes drawArrows {
+@keyframes drawLines {
   to {
     stroke-dashoffset: 0;
   }
