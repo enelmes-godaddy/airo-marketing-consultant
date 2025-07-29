@@ -6,17 +6,21 @@
   }
 }
 
-/* Target paths 2-5 (the four lines) - animate first */
-.animated-arrows path:nth-child(n+2) {
+/* Hide all paths initially */
+.animated-arrows path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: drawArrows 1.5s linear forwards;
 }
 
-/* Target first path (the arrowhead) - animate last */
-.animated-arrows path:first-child {
-  animation: drawArrows 0.5s linear forwards;
-  animation-delay: 1.5s;
+/* Arrow lines - animate first */
+.animated-arrows path:not(:last-child) {
+  animation: drawArrows 20s linear forwards;
+}
+
+/* Arrowhead - animate last */
+.animated-arrows path:last-child {
+  animation: drawArrows 1s linear forwards;
+  animation-delay: 20s;
 }
 
 @keyframes drawArrows {
