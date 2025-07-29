@@ -32,7 +32,8 @@ const stageConfig = {
 function App() {
   const [currentStage, setCurrentStage] = useState<1 | 2 | 3>(1);
   const [expandContent, setExpandContent] = useState(false);
-  const [showKeywords, setShowKeywords] = useState(false);
+  const [showStage1Keywords, setshowStage1Keywords] = useState(false);
+  const [showStage2Keywords, setShowStage2Keywords] = useState(false);
   const [showArrows, setShowArrows] = useState(false);
   const [showCenterBox, setShowCenterBox] = useState(false);
 
@@ -60,18 +61,18 @@ function App() {
 
   // Handle stage 1 completion - trigger sliding to keywords
   useEffect(() => {
-    if (currentStage === 1 && stage1.isSequenceComplete && !showKeywords) {
+    if (currentStage === 1 && stage1.isSequenceComplete && !showStage1Keywords) {
       const keywordTimer = setTimeout(() => {
-        setShowKeywords(true);
+        setshowStage1Keywords(true);
       }, 1000); // Wait for hideText animation to complete
 
       return () => clearTimeout(keywordTimer);
     }
-  }, [currentStage, stage1.isSequenceComplete, showKeywords]);
+  }, [currentStage, stage1.isSequenceComplete, showStage1Keywords]);
 
   // Handle stage 1 keywords completion - start stage 2
   useEffect(() => {
-    if (currentStage === 1 && showKeywords) {
+    if (currentStage === 1 && showStage1Keywords) {
       const stage2Timer = setTimeout(() => {
         setCurrentStage(2);
         stage2.startSequence();
@@ -79,11 +80,22 @@ function App() {
 
       return () => clearTimeout(stage2Timer);
     }
-  }, [currentStage, showKeywords, stage2]);
+  }, [currentStage, showStage1Keywords, stage2]);
 
-  // Handle stage 2 completion - start stage 3 with arrows
+  // Handle stage 2 completion - trigger sliding to keywords (same pattern as stage 1)
   useEffect(() => {
-    if (currentStage === 2 && stage2.isSequenceComplete) {
+    if (currentStage === 2 && stage2.isSequenceComplete && !showStage2Keywords) {
+      const keywordTimer = setTimeout(() => {
+        setShowStage2Keywords(true);
+      }, 1000); // Wait for hideText animation to complete
+
+      return () => clearTimeout(keywordTimer);
+    }
+  }, [currentStage, stage2.isSequenceComplete, showStage2Keywords]);
+
+  // Handle stage 2 keywords completion - start stage 3 with arrows
+  useEffect(() => {
+    if (currentStage === 2 && showStage2Keywords) {
       const stage3Timer = setTimeout(() => {
         setCurrentStage(3);
         setShowArrows(true);
@@ -91,7 +103,7 @@ function App() {
 
       return () => clearTimeout(stage3Timer);
     }
-  }, [currentStage, stage2.isSequenceComplete]);
+  }, [currentStage, showStage2Keywords]);
 
   // Handle arrows completion - show center box
   useEffect(() => {
@@ -112,18 +124,18 @@ function App() {
       <div
         className={classnames("content", {
           "expand-content": expandContent,
-          "four-c-box-keywords": showKeywords,
-          "four-p-box-keywords": currentStage >= 2 && stage2.isSequenceComplete,
+          "four-c-box-keywords": showStage1Keywords,
+          "four-p-box-keywords": showStage2Keywords,
           "center-box-visible": currentStage === 3,
           "show-arrows": showArrows,
           "show-center-box": showCenterBox,
         })}
       >
         {/* Stage 1 boxes */}
-        {(currentStage === 1 || showKeywords) && (
+        {(currentStage === 1 || showStage1Keywords) && (
           <div
             className={classnames("keyword-boxes four-c-boxes", {
-              "stage-complete": showKeywords,
+              "stage-complete": showStage1Keywords,
             })}
           >
             {stageConfig[1].data.map((item, index) => {
@@ -204,7 +216,7 @@ function App() {
         {currentStage >= 2 && (
           <div
             className={classnames("keyword-boxes four-p-boxes", {
-              "stage-complete": stage2.isSequenceComplete,
+              "stage-complete": showStage2Keywords,
             })}
           >
             {stageConfig[2].data.map((item, index) => {
