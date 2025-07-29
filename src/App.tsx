@@ -61,7 +61,11 @@ function App() {
 
   // Handle stage 1 completion - trigger sliding to keywords
   useEffect(() => {
-    if (currentStage === 1 && stage1.isSequenceComplete && !showStage1Keywords) {
+    if (
+      currentStage === 1 &&
+      stage1.isSequenceComplete &&
+      !showStage1Keywords
+    ) {
       const keywordTimer = setTimeout(() => {
         setShowStage1Keywords(true);
       }, 1000); // Wait for hideText animation to complete
@@ -84,7 +88,11 @@ function App() {
 
   // Handle stage 2 completion - trigger sliding to keywords (same pattern as stage 1)
   useEffect(() => {
-    if (currentStage === 2 && stage2.isSequenceComplete && !showStage2Keywords) {
+    if (
+      currentStage === 2 &&
+      stage2.isSequenceComplete &&
+      !showStage2Keywords
+    ) {
       const keywordTimer = setTimeout(() => {
         setShowStage2Keywords(true);
       }, 1000); // Wait for hideText animation to complete
@@ -118,7 +126,10 @@ function App() {
 
   return (
     <div className="marketing-consultant-animation">
-      <ConsultantHeader className={currentStage !== 1 ? "fade-down" : ""}>
+      <ConsultantHeader
+        key={currentStage}
+        className={currentStage > 1 ? "fade-down" : ""}
+      >
         {currentStageConfig.headerText}
       </ConsultantHeader>
       <div
