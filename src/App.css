@@ -1,15 +1,12 @@
 .marketing-consultant-animation {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* justify-content: flex-start; */
-  height: 550px;
+  height: 500px;
   width: 100%;
 }
 
 /* Make header slide up */
-.test-header {
-  transform: translateY(250px); /* Position header manually to enable smooth transition */
+.consultant-header {
+  /* Position header manually to enable smooth transition */
+  transform: translateY(250px);
   transition: transform 0.8s ease-out;
 
   /* When content expands, move header to top */
@@ -22,6 +19,8 @@
   flex: 0; /* Takes up minimum space initially */
   transition: flex 0.8s ease-out;
   width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
 
   &.expand-content {
     display: flex;
@@ -47,33 +46,76 @@
       transition: all 1s ease-out;
     }
   }
+
+  &.center-box-visible {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+}
+
+.keyword-boxes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+
+  &.stage-complete {
+    .consultant-box {
+      padding: 24px 0;
+      width: 180px;
+    }
+  }
 }
 
 .four-c-boxes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: fit-content;
-  position: relative;
   left: 50%;
   transform: translateX(-50%);
-  transition: all 1s ease-out;
 }
 
 .four-p-boxes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: fit-content;
-  position: relative;
   right: 50%;
   transform: translateX(50%);
-  transition: all 1s ease-out;
 }
 
-.test-header.fade-down {
+/* Stage 3: Center box */
+.stage-3-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.arrows-container {
+  height: 295.5px;
+  width: 122px;
+}
+
+.center-box.fade-in {
+  animation: fadeIn 1s ease-in-out;
+
+  .box-marketing-plan {
+    width: fit-content !important;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Page header */
+.consultant-header.fade-down {
   animation: fadeDown 0.5s ease-in-out;
 }
 

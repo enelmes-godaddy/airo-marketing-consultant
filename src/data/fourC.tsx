@@ -1,4 +1,4 @@
-export const fourCMockData = [
+export const fourCData = [
   {
     id: 'customers',
     titlePrefix: 'Learning about your',

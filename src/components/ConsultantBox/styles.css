@@ -8,11 +8,11 @@
   flex-direction: column;
   font-weight: 400;
   gap: 16px;
-  max-width: 490px;
+  max-width: 380px;
   overflow: hidden;
   padding: 24px;
   text-align: center;
-  transition: height 0.4s ease-out, max-width 1s ease-out; /* max-width transition needs to match the four-c-boxes transition */
+  transition: all 1s ease-out;
 
   &.consultant-box--loading {
     position: relative;
@@ -33,8 +33,8 @@
   }
 
   &.consultant-box--loaded {
-    max-width: fit-content;
     gap: 0;
+    width: 380px;
 
     &::after {
       display: none;
@@ -44,7 +44,8 @@
 
 .consultant-box__title {
   animation: fadeDown 0.5s ease-in-out;
-  font-size: 1.5rem;
+  font-size: 24.75px;
+  line-height: 1.3;
   
   .consultant-box--completed & span.title-text {
     animation: hideText 1s ease-in-out forwards;
@@ -53,6 +54,7 @@
 
 .consultant-box__description {
   font-size: 1rem;
+  line-height: 1.5;
   margin-block-end: 0.25rem;
   transition: all 0.3s ease-in-out;
 

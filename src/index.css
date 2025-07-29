@@ -1,5 +1,19 @@
+@font-face {
+  font-family: 'gdsherpa';
+  src: url('./fonts/gdsherpa-regular.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'gdsherpa';
+  src: url('./fonts/gdsherpa-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: gdsherpa, Helvetica, Arial, sans-serif;
 }
 
 body {
