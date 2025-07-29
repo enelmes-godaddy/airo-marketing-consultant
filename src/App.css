@@ -96,7 +96,7 @@
 }
 
 .center-box.fade-in {
-  animation: fadeIn 0.6s ease-in-out;
+  animation: fadeIn 0.6s ease-out;
 
   .box-marketing-plan {
     width: fit-content !important;
@@ -116,7 +116,7 @@
 
 /* Page header */
 .consultant-header.fade-down {
-  animation: fadeDown 0.5s ease-in-out;
+  animation: fadeDown 0.5s ease-out;
 }
 
 @keyframes fadeDown {
