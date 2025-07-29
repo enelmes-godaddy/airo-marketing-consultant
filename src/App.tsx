@@ -15,17 +15,17 @@ const stageConfig = {
   1: {
     data: fourCData,
     headerText: "Let's start by analyzing your business...",
-    direction: 'left' as const,
+    direction: "left" as const,
   },
   2: {
     data: fourPData,
     headerText: "Next, I'll use the 4P approach to create your plan...",
-    direction: 'right' as const,
+    direction: "right" as const,
   },
   3: {
     data: centerBoxData,
     headerText: "Now, let's bring it all together...",
-    direction: 'center' as const,
+    direction: "center" as const,
   },
 } as const;
 
@@ -106,7 +106,9 @@ function App() {
 
   return (
     <div className="marketing-consultant-animation">
-      <ConsultantHeader className={currentStage === 2 ? "fade-down" : ""}>{currentStageConfig.headerText}</ConsultantHeader>
+      <ConsultantHeader className={currentStage === 2 ? "fade-down" : ""}>
+        {currentStageConfig.headerText}
+      </ConsultantHeader>
       <div
         className={classnames("content", {
           "expand-content": expandContent,
@@ -119,9 +121,11 @@ function App() {
       >
         {/* Stage 1 boxes */}
         {(currentStage === 1 || showKeywords) && (
-          <div className={classnames("four-c-boxes", {
-            "stage-complete": showKeywords
-          })}>
+          <div
+            className={classnames("four-c-boxes", {
+              "stage-complete": showKeywords,
+            })}
+          >
             {stageConfig[1].data.map((item, index) => {
               const boxState = stage1.boxStates[index];
 
@@ -142,7 +146,9 @@ function App() {
                     <>
                       <span className="title-text">{item.titlePrefix}</span>{" "}
                       <b>{item.keyword}</b>
-                      {item.titleSuffix && <span className="title-text"> {item.titleSuffix}</span>}
+                      {item.titleSuffix && (
+                        <span className="title-text"> {item.titleSuffix}</span>
+                      )}
                       <span className="title-text">...</span>
                     </>
                   </ConsultantBox.Title>
@@ -172,7 +178,7 @@ function App() {
                 {stageConfig[3].data.map((item) => (
                   <ConsultantBox
                     key={item.id}
-                    className={`box-${item.keyword.toLowerCase()}`}
+                    className="box-center"
                     isLoading={false}
                     isLoaded={true}
                     isCompleted={false}
@@ -196,9 +202,11 @@ function App() {
 
         {/* Stage 2 boxes */}
         {currentStage >= 2 && (
-          <div className={classnames("four-p-boxes", {
-            "stage-complete": stage2.isSequenceComplete
-          })}>
+          <div
+            className={classnames("four-p-boxes", {
+              "stage-complete": stage2.isSequenceComplete,
+            })}
+          >
             {stageConfig[2].data.map((item, index) => {
               const boxState = stage2.boxStates[index];
 
@@ -219,7 +227,9 @@ function App() {
                     <>
                       <span className="title-text">{item.titlePrefix}</span>{" "}
                       <b>{item.keyword}</b>
-                      {item.titleSuffix && <span className="title-text"> {item.titleSuffix}</span>}
+                      {item.titleSuffix && (
+                        <span className="title-text"> {item.titleSuffix}</span>
+                      )}
                       <span className="title-text">...</span>
                     </>
                   </ConsultantBox.Title>
