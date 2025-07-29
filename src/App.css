@@ -7,7 +7,7 @@
 .consultant-header {
   /* Position header manually to enable smooth transition */
   transform: translateY(250px);
-  transition: transform 0.8s ease-out;
+  transition: transform 0.6s ease-out;
 
   /* When content expands, move header to top */
   .marketing-consultant-animation:has(.expand-content) & {
