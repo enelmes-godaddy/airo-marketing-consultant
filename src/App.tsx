@@ -32,7 +32,7 @@ const stageConfig = {
 function App() {
   const [currentStage, setCurrentStage] = useState<1 | 2 | 3>(1);
   const [expandContent, setExpandContent] = useState(false);
-  const [showStage1Keywords, setshowStage1Keywords] = useState(false);
+  const [showStage1Keywords, setShowStage1Keywords] = useState(false);
   const [showStage2Keywords, setShowStage2Keywords] = useState(false);
   const [showArrows, setShowArrows] = useState(false);
   const [showCenterBox, setShowCenterBox] = useState(false);
@@ -63,7 +63,7 @@ function App() {
   useEffect(() => {
     if (currentStage === 1 && stage1.isSequenceComplete && !showStage1Keywords) {
       const keywordTimer = setTimeout(() => {
-        setshowStage1Keywords(true);
+        setShowStage1Keywords(true);
       }, 1000); // Wait for hideText animation to complete
 
       return () => clearTimeout(keywordTimer);
