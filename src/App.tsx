@@ -106,7 +106,7 @@ function App() {
 
   return (
     <div className="marketing-consultant-animation">
-      <ConsultantHeader className={currentStage === 2 ? "fade-down" : ""}>
+      <ConsultantHeader className={currentStage !== 1 ? "fade-down" : ""}>
         {currentStageConfig.headerText}
       </ConsultantHeader>
       <div
