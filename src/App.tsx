@@ -68,7 +68,7 @@ function App() {
     ) {
       const keywordTimer = setTimeout(() => {
         setShowStage1Keywords(true);
-      }, 1000); // Wait for hideText animation to complete
+      }, 600); // Wait for hideText animation to complete
 
       return () => clearTimeout(keywordTimer);
     }
@@ -95,7 +95,7 @@ function App() {
     ) {
       const keywordTimer = setTimeout(() => {
         setShowStage2Keywords(true);
-      }, 1000); // Wait for hideText animation to complete
+      }, 600); // Wait for hideText animation to complete
 
       return () => clearTimeout(keywordTimer);
     }
